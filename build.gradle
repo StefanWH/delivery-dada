@@ -49,7 +49,6 @@ if (project.version.endsWith("-RELEASE")) {
 // 发布到本地Maven库和远程Maven服务器
 publishing {
     repositories {
-        mavenLocal()
         maven {
             credentials {
                 username nexusUserName
