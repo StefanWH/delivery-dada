@@ -1,13 +1,13 @@
 image: frekele/gradle:4.0-jdk8
 
 stages:
-  - gradleTest
+#  - gradleTest
   - gradlePublish
 
-gradle-test:
-  stage: gradleTest
-  script:
-    - gradle test --refresh-dependencies
+#gradle-test:
+#  stage: gradleTest
+#  script:
+#    - gradle test --refresh-dependencies
 
 gradle-publish:
   stage: gradlePublish
