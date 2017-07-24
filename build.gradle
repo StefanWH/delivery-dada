@@ -1,5 +1,5 @@
 group 'so.sao'
-version '1.0.0-SNAPSHOT'
+version '1.0.0-RELEASE'
 description = """shop-dada"""
 
 apply plugin: 'java'
