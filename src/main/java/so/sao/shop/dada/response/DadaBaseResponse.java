@@ -1,5 +1,7 @@
 package so.sao.shop.dada.response;
 
+import java.util.Map;
+
 public class DadaBaseResponse {
 
     private String status;
@@ -10,7 +12,15 @@ public class DadaBaseResponse {
 
     private Integer errorCode;
 
-    private Result result;
+    private Map<String , Object> result;
+
+    public Map<String, Object> getResult() {
+        return result;
+    }
+
+    public void setResult(Map<String, Object> result) {
+        this.result = result;
+    }
 
     public String getStatus() {
         return status;
@@ -42,14 +52,6 @@ public class DadaBaseResponse {
 
     public void setErrorCode(Integer errorCode) {
         this.errorCode = errorCode;
-    }
-
-    public Result getResult() {
-        return result;
-    }
-
-    public void setResult(Result result) {
-        this.result = result;
     }
 
 }
