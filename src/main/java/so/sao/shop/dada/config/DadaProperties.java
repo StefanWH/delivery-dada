@@ -1,5 +1,4 @@
 package so.sao.shop.dada.config;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 
@@ -13,6 +12,16 @@ public class DadaProperties {
     private String serviceHost;
 
     private String sourceId;
+
+    private String callback;
+
+    public String getCallback() {
+        return callback;
+    }
+
+    public void setCallback(String callback) {
+        this.callback = callback;
+    }
 
     public String getSourceId() {
         return sourceId;

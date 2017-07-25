@@ -22,11 +22,23 @@ public class DadaService {
      * */
     private static String format="json";
 
+    /**
+     * 新增订单达达接口
+     * */
     public DadaBaseResponse addDadaOrder(DadaBaseRequest request){
 
         DadaBaseResponse response=executeRequest("/api/order/addOrder", request);
         return response;
 
+    }
+
+    /**
+     * 查询城市信息接口
+     * */
+    public DadaBaseResponse queryCityDetail(DadaBaseRequest request){
+        request.setBody("");
+        DadaBaseResponse response=executeRequest("/api/cityCode/list", request);
+        return response;
     }
 
     private DadaBaseResponse executeRequest(String url, DadaBaseRequest request) {
@@ -52,4 +64,5 @@ public class DadaService {
     public void setDadaRestTemplate(RestTemplate dadaRestTemplate) {
         this.dadaRestTemplate = dadaRestTemplate;
     }
+
 }

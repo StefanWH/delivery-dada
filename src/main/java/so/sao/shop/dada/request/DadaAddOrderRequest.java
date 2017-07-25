@@ -44,6 +44,16 @@ public class DadaAddOrderRequest extends DadaBaseRequest {
 
     private Integer cargoNum;
 
+    private Integer cargoType;
+
+    public Integer getCargoType() {
+        return cargoType;
+    }
+
+    public void setCargoType(Integer cargoType) {
+        this.cargoType = cargoType;
+    }
+
     public String getShopNo() {
         return shopNo;
     }

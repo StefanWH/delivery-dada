@@ -117,22 +117,22 @@ public class DadaUtils {
     }
 
     public static void main(String []args) {
-        DadaBaseRequest request=new DadaBaseRequest();
-        request.setAppKey("dada339f050d417cda9");
-        request.setFormat("json");
-        request.setV("1.0");
-        Long s=System.currentTimeMillis();
-        request.setTimestamp(s.toString());
-        request.setSourceId("73753");
-        DadaAddOrderRequest addRequest = new DadaAddOrderRequest();
-        addRequest.setCityCode("021");
-        addRequest.setInfo("测试");
-        request.setBody(toJson(addRequest));
+//        DadaBaseRequest request=new DadaBaseRequest();
+//        request.setAppKey("dada339f050d417cda9");
+//        request.setFormat("json");
+//        request.setV("1.0");
+//        Long s=System.currentTimeMillis();
+//        request.setTimestamp(s.toString());
+//        request.setSourceId("73753");
+//        DadaAddOrderRequest addRequest = new DadaAddOrderRequest();
+//        addRequest.setCityCode("021");
+//        addRequest.setInfo("测试");
+//        request.setBody(toJson(addRequest));
 
         //getSign(request);
 
         //Map<String , Object> map=entityTransToMap(request);
 
-        System.out.print(request.toString());
+        //System.out.print(request.toString());
     }
 }
