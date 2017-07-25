@@ -71,7 +71,7 @@ public class DadaUtils {
     /**
      * 将实体类转化为map形式
      * */
-    private static Map<String,Object> entityTransToMap(DadaBaseRequest request){
+    public static Map<String,Object> entityTransToMap(DadaBaseRequest request){
 
         //将不同的实体类放入currentHashMap不同的segment中当作缓存，下次相同的实体可以直接从缓存中获取其属性元素
         PropertyDescriptor[] propertyDescriptors = PROPERTY_DESCRIPTORS_CACHE.computeIfAbsent(request.getClass(), clazz -> {

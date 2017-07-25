@@ -1,4 +1,4 @@
-package so.sao.shop.dada;
+package so.sao.shop.dada.errorcode;
 
 import so.sao.shop.modules.errorcode.ErrorCode;
 
