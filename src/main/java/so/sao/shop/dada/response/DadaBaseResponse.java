@@ -12,13 +12,13 @@ public class DadaBaseResponse {
 
     private Integer errorCode;
 
-    private Map<String , Object> result;
+    private Object result;
 
-    public Map<String, Object> getResult() {
+    public Object getResult() {
         return result;
     }
 
-    public void setResult(Map<String, Object> result) {
+    public void setResult(Object result) {
         this.result = result;
     }
 
