@@ -63,16 +63,9 @@ public class DadaUtils {
         String sign = appSecret + signStr.toString() + appSecret;
 
         //md5签名并后，转化为大写
-        Hashing.md5().hashString(sign, StandardCharsets.UTF_8).toString()
+        return Hashing.md5().hashString(sign, StandardCharsets.UTF_8).toString()
                 .toUpperCase(Locale.ENGLISH);
 
-        System.out.print(signStr);
-
-
-        //MD5签名并校验
-//        String sign = encrypt(appSecret + signStr.toString() + appSecret);
-//        return sign.toUpperCase();
-        return null;
     }
 
     /**
