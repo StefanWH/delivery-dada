@@ -3,10 +3,7 @@ package so.sao.shop.dada.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 import so.sao.shop.dada.config.DadaProperties;
-import so.sao.shop.dada.request.DadaAddOrderRequest;
-import so.sao.shop.dada.request.DadaBaseRequest;
-import so.sao.shop.dada.request.DadaQueryDeliveryFeeRequest;
-import so.sao.shop.dada.request.DadaRequest;
+import so.sao.shop.dada.request.*;
 import so.sao.shop.dada.response.DadaBaseResponse;
 import so.sao.shop.dada.util.DadaUtils;
 import so.sao.shop.modules.mapper.JsonMapper;
@@ -54,7 +51,17 @@ public class DadaService {
     public DadaBaseResponse queryThirdPartyNo(DadaQueryDeliveryFeeRequest request){
 
         DadaBaseRequest dadaRequest = setBaseBody(request);
-        DadaBaseResponse response=executeRequest("/api/order/addOrder", dadaRequest);
+        DadaBaseResponse response=executeRequest("/api/order/queryDeliverFee", dadaRequest);
+        return response;
+    }
+
+    /**
+     * 订单发布接口
+     * */
+    public DadaBaseResponse publishOrder(DadaPublishOrderRequest request){
+
+        DadaBaseRequest dadaRequest = setBaseBody(request);
+        DadaBaseResponse response=executeRequest("/api/order/addAfterQuery", dadaRequest);
         return response;
     }
 
