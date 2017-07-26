@@ -68,6 +68,16 @@ public class DadaService {
         return response;
     }
 
+    /**
+     * 取消订单接口
+     * */
+    public DadaBaseResponse cancelOrder(DadaCancelOrderRequest request){
+
+        DadaBaseRequest dadaRequest = setBaseBody(request);
+        DadaBaseResponse response=executeRequest("/api/order/formalCancel", dadaRequest);
+        return response;
+    }
+
 
     /**
      * 查询城市信息接口
