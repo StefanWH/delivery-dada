@@ -1,6 +1,7 @@
 package so.sao.shop.dada.errorcode;
 
 
+import so.sao.shop.modules.errorcode.ErrorCode;
 
 public class DadaErrorCode implements ErrorCode {
 
