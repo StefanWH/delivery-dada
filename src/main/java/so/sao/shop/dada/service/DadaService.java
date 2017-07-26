@@ -5,6 +5,8 @@ import org.springframework.web.client.RestTemplate;
 import so.sao.shop.dada.config.DadaProperties;
 import so.sao.shop.dada.request.DadaAddOrderRequest;
 import so.sao.shop.dada.request.DadaBaseRequest;
+import so.sao.shop.dada.request.DadaQueryDeliveryFeeRequest;
+import so.sao.shop.dada.request.DadaRequest;
 import so.sao.shop.dada.response.DadaBaseResponse;
 import so.sao.shop.dada.util.DadaUtils;
 import so.sao.shop.modules.mapper.JsonMapper;
@@ -33,18 +35,29 @@ public class DadaService {
     /**
      * 新增订单达达接口
      * */
-    public DadaBaseResponse addDadaOrder(DadaAddOrderRequest request){
+    public DadaBaseResponse addDadaOrder(DadaAddOrderRequest dadaAddOrderRequest){
 
         //先将DadaAddOrderRequest中驼峰形式的属性转化为下划线形式。
-        Map<String , Object> addRequestMap=DadaUtils.entityTransToMap(request);
+        Map<String , Object> addRequestMap = DadaUtils.entityTransToMap(dadaAddOrderRequest);
         //设置通用请求的body
         DadaBaseRequest dadaRequest = new DadaBaseRequest();
         dadaRequest.setBody(jsonMapper.toJson(addRequestMap));
 
-        DadaBaseResponse response=executeRequest("/api/order/addOrder", request);
+        DadaBaseResponse response=executeRequest("/api/order/addOrder", dadaRequest);
         return response;
 
     }
+
+    /**
+     * 查询订单运费接口（实际为查询第三方（达达）的订单号）
+     * */
+    public DadaBaseResponse queryThirdPartyNo(DadaQueryDeliveryFeeRequest request){
+
+        DadaBaseRequest dadaRequest = setBaseBody(request);
+        DadaBaseResponse response=executeRequest("/api/order/addOrder", dadaRequest);
+        return response;
+    }
+
 
     /**
      * 查询城市信息接口
@@ -74,6 +87,16 @@ public class DadaService {
         request.setFormat(format);
         //request.setSignature(DadaUtils.getSign(request,dadaProperties.getAppSecret()));
         request.setSignature(DadaUtils.getSign(request,"bf0f92e9d6f4002d4f48248eff55b793"));
+    }
+
+    private DadaBaseRequest setBaseBody(DadaBaseRequest request){
+        //先将DadaAddOrderRequest中驼峰形式的属性转化为下划线形式。
+        Map<String , Object> requestBodyMap = DadaUtils.entityTransToMap(request);
+        //设置通用请求的body
+        DadaBaseRequest dadaRequest = new DadaBaseRequest();
+        dadaRequest.setBody(jsonMapper.toJson(requestBodyMap));
+
+        return dadaRequest;
     }
 
     public void setDadaProperties(DadaProperties dadaProperties) {
