@@ -1,5 +1,7 @@
 package so.sao.shop.dada.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 import so.sao.shop.dada.config.DadaProperties;
@@ -9,6 +11,7 @@ import so.sao.shop.dada.util.DadaUtils;
 import so.sao.shop.dada.util.JsonMapper;
 
 
+import java.io.IOException;
 import java.util.Map;
 
 public class DadaService {
@@ -17,8 +20,7 @@ public class DadaService {
 
     private RestTemplate dadaRestTemplate;
 
-    private JsonMapper jsonMapper;
-
+    private static ObjectMapper mapper = new ObjectMapper();
 
     /**
      * 达达api版本
@@ -39,7 +41,7 @@ public class DadaService {
         Map<String , Object> addRequestMap = DadaUtils.entityTransToMap(dadaAddOrderRequest);
         //设置通用请求的body
         DadaBaseRequest dadaRequest = new DadaBaseRequest();
-        dadaRequest.setBody(jsonMapper.toJson(addRequestMap));
+        dadaRequest.setBody(toJson(addRequestMap));
 
         DadaBaseResponse response=executeRequest("/api/order/addOrder", dadaRequest);
         return response;
@@ -111,9 +113,19 @@ public class DadaService {
         Map<String , Object> requestBodyMap = DadaUtils.entityTransToMap(request);
         //设置通用请求的body
         DadaBaseRequest dadaRequest = new DadaBaseRequest();
-        dadaRequest.setBody(jsonMapper.toJson(requestBodyMap));
+        dadaRequest.setBody(toJson(requestBodyMap));
 
         return dadaRequest;
+    }
+
+    //将实体类转化为json
+    public String toJson(Object object) {
+        try {
+            ObjectWriter writer = mapper.writerFor(object.getClass());
+            return writer.writeValueAsString(object);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void setDadaProperties(DadaProperties dadaProperties) {
@@ -124,8 +136,5 @@ public class DadaService {
         this.dadaRestTemplate = dadaRestTemplate;
     }
 
-    public void setJsonMapper(JsonMapper jsonMapper) {
-        this.jsonMapper = jsonMapper;
-    }
 
 }
