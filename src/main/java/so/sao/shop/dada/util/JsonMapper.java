@@ -2,6 +2,7 @@ package so.sao.shop.dada.util;
 
 import com.fasterxml.jackson.databind.*;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class JsonMapper {
 
     private ObjectMapper mapper;

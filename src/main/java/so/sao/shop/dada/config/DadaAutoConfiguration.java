@@ -11,6 +11,7 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 import so.sao.shop.dada.service.DadaService;
+import so.sao.shop.dada.util.JsonMapper;
 
 @Configuration
 @EnableConfigurationProperties(DadaProperties.class)
@@ -19,6 +20,9 @@ public class DadaAutoConfiguration {
 
     @Autowired
     private DadaProperties properties;
+
+    @Autowired
+    private JsonMapper jsonMapper;
 
     @Bean
     public DadaService dadaService(HttpClient httpClient, RestTemplateBuilder restTemplateBuilder){
@@ -30,6 +34,7 @@ public class DadaAutoConfiguration {
                 .requestFactory(requestFactory).build();
         dadaService.setDadaRestTemplate(wechatPaymentRestTemplate);
         dadaService.setDadaProperties(properties);
+        dadaService.setJsonMapper(jsonMapper);
 
         return dadaService;
     }

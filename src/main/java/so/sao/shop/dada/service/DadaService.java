@@ -17,7 +17,6 @@ public class DadaService {
 
     private RestTemplate dadaRestTemplate;
 
-    @Autowired
     private JsonMapper jsonMapper;
 
 
@@ -123,6 +122,10 @@ public class DadaService {
 
     public void setDadaRestTemplate(RestTemplate dadaRestTemplate) {
         this.dadaRestTemplate = dadaRestTemplate;
+    }
+
+    public void setJsonMapper(JsonMapper jsonMapper) {
+        this.jsonMapper = jsonMapper;
     }
 
 }
