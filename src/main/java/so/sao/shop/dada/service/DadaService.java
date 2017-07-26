@@ -6,7 +6,8 @@ import so.sao.shop.dada.config.DadaProperties;
 import so.sao.shop.dada.request.*;
 import so.sao.shop.dada.response.DadaBaseResponse;
 import so.sao.shop.dada.util.DadaUtils;
-import so.sao.shop.modules.mapper.JsonMapper;
+import so.sao.shop.dada.util.JsonMapper;
+
 
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public class DadaService {
 
     @Autowired
     private JsonMapper jsonMapper;
+
 
     /**
      * 达达api版本
@@ -72,6 +74,15 @@ public class DadaService {
     public DadaBaseResponse queryCityDetail(DadaBaseRequest request){
         request.setBody("");
         DadaBaseResponse response=executeRequest("/api/cityCode/list", request);
+        return response;
+    }
+
+    /**
+     * 查询订单取消原因接口
+     * */
+    public DadaBaseResponse queryCancelReason(DadaBaseRequest request){
+        request.setBody("");
+        DadaBaseResponse response=executeRequest("/api/order/cancel/reasons", request);
         return response;
     }
 
