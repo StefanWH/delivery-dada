@@ -2,11 +2,9 @@ package so.sao.shop.dada.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.google.common.base.CaseFormat;
-import com.google.common.hash.Hashing;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ReflectionUtils;
-import so.sao.shop.dada.request.DadaAddOrderRequest;
 import so.sao.shop.dada.request.DadaBaseRequest;
 
 import java.beans.BeanInfo;
@@ -14,7 +12,6 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -52,19 +49,16 @@ public class DadaUtils {
         List<String> list = new ArrayList<>(keySet);
 
         //拼接键值对字符串
-        StringBuffer signStr = new StringBuffer();
-        for (int i = 0; i < list.size(); i++) {
-            String key = list.get(i);
-            signStr.append(key + map.get(key));
+        StringBuilder signStr = new StringBuilder();
+        for (String key : list) {
+            signStr.append(key).append(map.get(key));
         }
 
         //在字符串首尾加上app_secret
         String sign = appSecret + signStr.toString() + appSecret;
 
         //md5签名并后，转化为大写
-        return Hashing.md5().hashString(sign, StandardCharsets.UTF_8).toString()
-                .toUpperCase(Locale.ENGLISH);
-
+        return DigestUtils.md5Hex(sign).toUpperCase(Locale.ENGLISH);
     }
 
     /**
@@ -91,7 +85,8 @@ public class DadaUtils {
             Object param = ReflectionUtils.invokeMethod(pd.getReadMethod(), request);
             if (param != null) {
                 //将下划线形式的属性，转化为驼峰型（作为key与值param放入map）
-                map.put(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, pd.getName()), param);
+                String key = StringUtils.lowerCase(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(pd.getName()), "_"));
+                map.put(key, param);
             }
         }
 

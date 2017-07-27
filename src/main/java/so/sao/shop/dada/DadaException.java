@@ -3,19 +3,18 @@ package so.sao.shop.dada;
 import org.springframework.http.HttpStatus;
 
 
-import so.sao.shop.modules.errorcode.ErrorCode;
-import so.sao.shop.modules.exceptions.ShopRuntimeException;
+import so.sao.shop.dada.errorcode.DadaErrorCode;
 
+public class DadaException {
 
-public class DadaException extends ShopRuntimeException {
+    public DadaException() {
+    }
 
-    private static final long serialVersionUID = 1L;
+    public DadaException(HttpStatus status, DadaErrorCode errorCode, String message) {
 
-    public DadaException(HttpStatus status, ErrorCode code, String message) {
-        super(status, code, message);
     }
 
     public DadaException(HttpStatus status, int code, String message) {
-        super(status, code, message);
+
     }
 }

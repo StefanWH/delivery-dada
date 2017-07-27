@@ -1,12 +1,8 @@
 package so.sao.shop.dada.errorcode;
 
 
-import so.sao.shop.modules.errorcode.ErrorCode;
 
-public class DadaErrorCode implements ErrorCode {
+public interface DadaErrorCode {
 
-    @Override
-    public int getId() {
-        return 0;
-    }
+    int getId();
 }

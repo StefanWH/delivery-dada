@@ -35,17 +35,16 @@ repositories {
 }
 
 dependencies {
+//    compile group: "so.sao", name: "shop-core", version: "1.0.0-SNAPSHOT", changing: true
+
     compile "org.apache.httpcomponents:fluent-hc:4.5.3"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.springframework:spring-web:4.3.7.RELEASE"
     compile "org.springframework.boot:spring-boot-configuration-processor"
-    compile "com.google.guava:guava:22.0"
-
-    compile group: "so.sao", name: "shop-core", version: "1.0.0-SNAPSHOT", changing: true
-
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.7'
     compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-parameter-names', version: '2.8.7'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
