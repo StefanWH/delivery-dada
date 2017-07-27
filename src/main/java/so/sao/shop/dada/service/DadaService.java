@@ -78,6 +78,17 @@ public class DadaService {
         return response;
     }
 
+    /**
+     * 查询订单详情接口
+     * */
+    public DadaBaseResponse queryOrderDetail(DadaQueryOrderDetailRequest request){
+
+        DadaBaseRequest dadaRequest = setBaseBody(request);
+        DadaBaseResponse response=executeRequest("/api/order/status/query", dadaRequest);
+        return response;
+
+    }
+
 
     /**
      * 查询城市信息接口
