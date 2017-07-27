@@ -3,7 +3,6 @@ package so.sao.shop.dada.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ReflectionUtils;
 import so.sao.shop.dada.request.DadaBaseRequest;
 
@@ -20,6 +19,8 @@ import java.util.concurrent.ConcurrentMap;
  * 达达生成签名工具
  * */
 public class DadaUtils {
+
+    public static final char UNDERLINE = '_';
 
     //在该工具类中维护一个缓存
     private static final ConcurrentMap<Class<?>, PropertyDescriptor[]> PROPERTY_DESCRIPTORS_CACHE = new ConcurrentHashMap<>();
@@ -85,8 +86,7 @@ public class DadaUtils {
             Object param = ReflectionUtils.invokeMethod(pd.getReadMethod(), request);
             if (param != null) {
                 //将下划线形式的属性，转化为驼峰型（作为key与值param放入map）
-                String key = StringUtils.lowerCase(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(pd.getName()), "_"));
-                map.put(key, param);
+                map.put(underlineToCamel(pd.getName()), param);
             }
         }
 
@@ -101,6 +101,26 @@ public class DadaUtils {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    // 将下划线形式的字符串转化为驼峰型
+    private static String underlineToCamel(String param){
+        if (param==null||"".equals(param.trim())) {
+            return "";
+        }
+        int len = param.length();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            char c = param.charAt(i);
+            if (c == UNDERLINE){
+                if (++i < len) {
+                    sb.append(Character.toUpperCase(param.charAt(i)));
+                }
+            }else{
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 
     public static void main(String []args) {
