@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.util.ReflectionUtils;
 import so.sao.shop.dada.request.DadaBaseRequest;
+import so.sao.shop.dada.request.DadaCreateShopRequest;
+import so.sao.shop.dada.request.DadaCreateShopsRequest;
+import so.sao.shop.dada.service.DadaService;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -166,7 +169,22 @@ public class DadaUtils {
         //Map<String , Object> map=entityTransToMap(request);
 
         //System.out.print(request.toString());
-        LocalDateTime time = LocalDateTime.now();
-        System.out.print(time);
+        DadaCreateShopRequest request1 = new DadaCreateShopRequest();
+        request1.setOriginShopId("11111");
+        request1.setAreaName("上海");
+        request1.setContactName("小人");
+        DadaCreateShopRequest request2 = new DadaCreateShopRequest();
+        request2.setOriginShopId("222222");
+        request2.setAreaName("上海");
+        request2.setContactName("大人");
+        ArrayList<DadaCreateShopRequest> list = new ArrayList<DadaCreateShopRequest>();
+        list.add(request1);
+        list.add(request2);
+
+        DadaCreateShopsRequest request = new DadaCreateShopsRequest();
+        request.setCreateShopList(list);
+        DadaService service = new DadaService();
+        service.createDadaShop(request1);
+        //System.out.print();
     }
 }

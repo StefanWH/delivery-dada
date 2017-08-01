@@ -12,6 +12,7 @@ import so.sao.shop.dada.util.JsonMapper;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class DadaService {
@@ -95,6 +96,9 @@ public class DadaService {
     public DadaBaseResponse createDadaShop(DadaCreateShopRequest request){
 
         DadaBaseRequest dadaRequest = setBaseBody(request);
+        ArrayList<String> list = new ArrayList<String>();
+        list.add(dadaRequest.getBody());
+        dadaRequest.setBody(toJson(list));
         DadaBaseResponse response=executeRequest("/api/shop/add", dadaRequest);
         return response;
     }
