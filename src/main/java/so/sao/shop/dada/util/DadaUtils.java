@@ -6,7 +6,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.util.ReflectionUtils;
 import so.sao.shop.dada.request.DadaBaseRequest;
 import so.sao.shop.dada.request.DadaCreateShopRequest;
-import so.sao.shop.dada.request.DadaCreateShopsRequest;
 import so.sao.shop.dada.service.DadaService;
 
 import java.beans.BeanInfo;
@@ -181,8 +180,7 @@ public class DadaUtils {
         list.add(request1);
         list.add(request2);
 
-        DadaCreateShopsRequest request = new DadaCreateShopsRequest();
-        request.setCreateShopList(list);
+
         DadaService service = new DadaService();
         service.createDadaShop(request1);
         //System.out.print();

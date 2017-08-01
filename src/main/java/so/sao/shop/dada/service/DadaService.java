@@ -2,13 +2,12 @@ package so.sao.shop.dada.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 import so.sao.shop.dada.config.DadaProperties;
 import so.sao.shop.dada.request.*;
 import so.sao.shop.dada.response.DadaBaseResponse;
 import so.sao.shop.dada.util.DadaUtils;
-import so.sao.shop.dada.util.JsonMapper;
+
 
 
 import java.io.IOException;
