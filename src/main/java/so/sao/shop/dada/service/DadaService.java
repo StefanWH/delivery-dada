@@ -94,9 +94,12 @@ public class DadaService {
      * */
     public DadaBaseResponse createDadaShop(DadaCreateShopRequest request){
 
-        DadaBaseRequest dadaRequest = setBaseBody(request);
-        ArrayList<String> list = new ArrayList<String>();
-        list.add(dadaRequest.getBody());
+        //将传来的请求转化为map形式
+        Map<String , Object> requestBodyMap = DadaUtils.entityTransToMap(request);
+
+        DadaBaseRequest dadaRequest = new DadaBaseRequest();
+        ArrayList<Map<String , Object>> list = new ArrayList<Map<String , Object>>();
+        list.add(requestBodyMap);
         dadaRequest.setBody(toJson(list));
         DadaBaseResponse response=executeRequest("/api/shop/add", dadaRequest);
         return response;
