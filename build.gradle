@@ -1,11 +1,13 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.4.RELEASE'
+        springBootVersion = '1.5.6.RELEASE'
     }
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'http://repo.spring.io/plugins-release' }
     }
     dependencies {
+        classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
@@ -13,6 +15,12 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'maven-publish'//添加Maven发布插件
+configure(allprojects) {
+    apply plugin: 'propdeps'
+    apply plugin: 'propdeps-maven'
+    apply plugin: 'propdeps-idea'
+    apply plugin: 'propdeps-eclipse'
+}
 
 group 'so.sao'
 version '1.0.19-RELEASE'
@@ -37,17 +45,18 @@ repositories {
 dependencies {
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.springframework:spring-web:4.3.7.RELEASE"
-    compile "org.springframework.boot:spring-boot-configuration-processor"
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.1'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.7'
     compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-parameter-names', version: '2.8.7'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
 
+    optional "org.springframework.boot:spring-boot-configuration-processor"
     testCompile group: 'junit', name: 'junit', version: '4.11'
-
 }
 
+compileJava.dependsOn(processResources)
 
 // 打包
 publishing {
