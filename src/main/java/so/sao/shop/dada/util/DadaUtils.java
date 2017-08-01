@@ -11,6 +11,7 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -85,8 +86,8 @@ public class DadaUtils {
             //反射get方法，得到属性对应的值
             Object param = ReflectionUtils.invokeMethod(pd.getReadMethod(), request);
             if (param != null) {
-                //将下划线形式的属性，转化为驼峰型（作为key与值param放入map）
-                map.put(underlineToCamel(pd.getName()), param);
+                //将下驼峰型的属性，转化为下划线（作为key与值param放入map）
+                map.put(camelToUnderline(pd.getName()), param);
             }
         }
 
@@ -123,6 +124,30 @@ public class DadaUtils {
         return sb.toString();
     }
 
+    /**
+     * 驼峰格式字符串转换为下划线格式字符串
+     *
+     * @param param
+     * @return
+     */
+    public static String camelToUnderline(String param) {
+        if (param == null || "".equals(param.trim())) {
+            return "";
+        }
+        int len = param.length();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            char c = param.charAt(i);
+            if (Character.isUpperCase(c)) {
+                sb.append(UNDERLINE);
+                sb.append(Character.toLowerCase(c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
     public static void main(String []args) {
 //        DadaBaseRequest request=new DadaBaseRequest();
 //        request.setAppKey("dada339f050d417cda9");
@@ -141,5 +166,7 @@ public class DadaUtils {
         //Map<String , Object> map=entityTransToMap(request);
 
         //System.out.print(request.toString());
+        LocalDateTime time = LocalDateTime.now();
+        System.out.print(time);
     }
 }
