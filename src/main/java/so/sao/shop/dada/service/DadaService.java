@@ -105,6 +105,14 @@ public class DadaService {
         return response;
     }
 
+    /**
+     * 查询达达门店详情
+     * */
+    public DadaBaseResponse queryDadaShop(DadaQueryShopRequest request){
+        DadaBaseRequest dadaRequest = setBaseBody(request);
+        DadaBaseResponse response=executeRequest("/api/shop/detail", dadaRequest);
+        return response;
+    }
 
     /**
      * 查询城市信息接口
