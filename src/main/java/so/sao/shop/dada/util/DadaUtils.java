@@ -87,9 +87,13 @@ public class DadaUtils {
         for (PropertyDescriptor pd : propertyDescriptors) {
             //反射get方法，得到属性对应的值
             Object param = ReflectionUtils.invokeMethod(pd.getReadMethod(), request);
-            if (param != null) {
+            if (param != null && !pd.getName().equals("deliveryNo")) {
                 //将下驼峰型的属性，转化为下划线（作为key与值param放入map）
                 map.put(camelToUnderline(pd.getName()), param);
+            }
+            //达达漏洞deliveryNo不是下划线的形式
+            else if(param != null && pd.getName().equals("deliveryNo")){
+                map.put(pd.getName(), param);
             }
         }
 
