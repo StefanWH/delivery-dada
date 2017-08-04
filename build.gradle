@@ -23,7 +23,7 @@ configure(allprojects) {
 }
 
 group 'so.sao'
-version '1.0.27-RELEASE'
+version '1.0.28-RELEASE'
 description = """shop-dada"""
 
 sourceCompatibility = 1.8

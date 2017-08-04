@@ -5,32 +5,32 @@ public class DadaCallbackResponse {
     /**
      * 达达订单号
      * */
-    private String client_id;
+    private String clientId;
 
     /**
      * 商户订单号
      * */
-    private String order_id;
+    private String orderId;
 
     /**
      * 达达订单状态
      * */
-    private Integer order_status;
+    private Integer orderStatus;
 
     /**
      * 取消原因
      * */
-    private String cancel_reason;
+    private String cancelReason;
 
     /**
      * 取消原因来源
      * */
-    private Integer cancel_from;
+    private Integer cancelFrom;
 
     /**
      * 更新时间
      * */
-    private int update_time;
+    private int updateTime;
 
     /**
      * 回调签名
@@ -40,64 +40,64 @@ public class DadaCallbackResponse {
     /**
      * 达达配送员id(当配送员接单后会返回达达配送员相关信息)
      * */
-    private Integer dm_id;
+    private Integer dmId;
 
     /**
      * 达达配送员姓名(当配送员接单后会返回达达配送员相关信息)
      * */
-    private String dm_name;
+    private String dmName;
 
     /**
      * 达达配送员手机号(当配送员接单后会返回达达配送员相关信息)
      * */
-    private String dm_mobile;
+    private String dmMobile;
 
-    public String getClient_id() {
-        return client_id;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setClient_id(String client_id) {
-        this.client_id = client_id;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    public String getOrder_id() {
-        return order_id;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrder_id(String order_id) {
-        this.order_id = order_id;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
-    public Integer getOrder_status() {
-        return order_status;
+    public Integer getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOrder_status(Integer order_status) {
-        this.order_status = order_status;
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
-    public String getCancel_reason() {
-        return cancel_reason;
+    public String getCancelReason() {
+        return cancelReason;
     }
 
-    public void setCancel_reason(String cancel_reason) {
-        this.cancel_reason = cancel_reason;
+    public void setCancelReason(String cancelReason) {
+        this.cancelReason = cancelReason;
     }
 
-    public Integer getCancel_from() {
-        return cancel_from;
+    public Integer getCancelFrom() {
+        return cancelFrom;
     }
 
-    public void setCancel_from(Integer cancel_from) {
-        this.cancel_from = cancel_from;
+    public void setCancelFrom(Integer cancelFrom) {
+        this.cancelFrom = cancelFrom;
     }
 
-    public int getUpdate_time() {
-        return update_time;
+    public int getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(int update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(int updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getSignature() {
@@ -108,29 +108,28 @@ public class DadaCallbackResponse {
         this.signature = signature;
     }
 
-    public Integer getDm_id() {
-        return dm_id;
+    public Integer getDmId() {
+        return dmId;
     }
 
-    public void setDm_id(Integer dm_id) {
-        this.dm_id = dm_id;
+    public void setDmId(Integer dmId) {
+        this.dmId = dmId;
     }
 
-    public String getDm_name() {
-        return dm_name;
+    public String getDmName() {
+        return dmName;
     }
 
-    public void setDm_name(String dm_name) {
-        this.dm_name = dm_name;
+    public void setDmName(String dmName) {
+        this.dmName = dmName;
     }
 
-    public String getDm_mobile() {
-        return dm_mobile;
+    public String getDmMobile() {
+        return dmMobile;
     }
 
-    public void setDm_mobile(String dm_mobile) {
-        this.dm_mobile = dm_mobile;
+    public void setDmMobile(String dmMobile) {
+        this.dmMobile = dmMobile;
     }
-
 
 }
