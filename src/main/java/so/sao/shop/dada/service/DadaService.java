@@ -132,6 +132,51 @@ public class DadaService {
         return response;
     }
 
+    /**
+     * 测试环境模拟达达接单
+     * */
+    public DadaBaseResponse acceptOrder(DadaOrderStatusChangeTestRequest request){
+        DadaBaseRequest dadaRequest = setBaseBody(request);
+        DadaBaseResponse response=executeRequest("/api/order/accept", dadaRequest);
+        return response;
+    }
+
+    /**
+     * 测试环境模拟达达取货
+     * */
+    public DadaBaseResponse fetch(DadaOrderStatusChangeTestRequest request){
+        DadaBaseRequest dadaRequest = setBaseBody(request);
+        DadaBaseResponse response=executeRequest("/api/order/fetch", dadaRequest);
+        return response;
+    }
+
+    /**
+     * 测试环境模拟达达完成
+     * */
+    public DadaBaseResponse completed(DadaOrderStatusChangeTestRequest request){
+        DadaBaseRequest dadaRequest = setBaseBody(request);
+        DadaBaseResponse response=executeRequest("/api/order/finish", dadaRequest);
+        return response;
+    }
+
+    /**
+     * 测试环境模拟达达取消
+     * */
+    public DadaBaseResponse cancel(DadaOrderStatusChangeTestRequest request){
+        DadaBaseRequest dadaRequest = setBaseBody(request);
+        DadaBaseResponse response=executeRequest("/api/order/cancel", dadaRequest);
+        return response;
+    }
+
+    /**
+     * 测试环境模拟订单过期
+     * */
+    public DadaBaseResponse expire(DadaOrderStatusChangeTestRequest request){
+        DadaBaseRequest dadaRequest = setBaseBody(request);
+        DadaBaseResponse response=executeRequest("/api/order/expire", dadaRequest);
+        return response;
+    }
+
     private DadaBaseResponse executeRequest(String url, DadaBaseRequest request) {
         setBaseRequestParams(request);
         //将request中的驼峰形式的属性转化为"_"形式的map
