@@ -30,7 +30,7 @@ public class DadaCallbackResponse {
     /**
      * 更新时间
      * */
-    private int updateTime;
+    private Long updateTime;
 
     /**
      * 回调签名
@@ -92,11 +92,11 @@ public class DadaCallbackResponse {
         this.cancelFrom = cancelFrom;
     }
 
-    public int getUpdateTime() {
+    public Long getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(int updateTime) {
+    public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
     }
 
