@@ -21,9 +21,13 @@ public class DadaAutoConfiguration {
 
     @Bean
     public DadaService dadaService(RestTemplateBuilder restTemplateBuilder){
+
+        OkHttp3ClientHttpRequestFactory factory = new OkHttp3ClientHttpRequestFactory();
+        factory.setReadTimeout(10000);//设置超时时间
+
         RestTemplate wechatPaymentRestTemplate = restTemplateBuilder
                 .rootUri(properties.getServiceHost())
-                .requestFactory(new OkHttp3ClientHttpRequestFactory())
+                .requestFactory(factory)
                 .build();
 
         DadaService dadaService = new DadaService();
