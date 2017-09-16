@@ -1,35 +1,33 @@
 package so.sao.shop.dada.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.util.ReflectionUtils;
 import so.sao.shop.dada.request.DadaBaseRequest;
 import so.sao.shop.dada.request.DadaCreateShopRequest;
 import so.sao.shop.dada.service.DadaService;
 
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-
 /**
  * 达达生成签名工具
  * */
 public class DadaUtils {
 
-    public static final char UNDERLINE = '_';
+    private static final char UNDERLINE = '_';
 
     //在该工具类中维护一个缓存
     private static final ConcurrentMap<Class<?>, PropertyDescriptor[]> PROPERTY_DESCRIPTORS_CACHE = new ConcurrentHashMap<>();
-
-    //json 序列化使用
-    private static ObjectMapper mapper = new ObjectMapper();
 
     /**
      * 生成签名
@@ -99,15 +97,6 @@ public class DadaUtils {
 
         return map;
 
-    }
-
-    public static String toJson(Object object) {
-        try {
-            ObjectWriter writer = mapper.writerFor(object.getClass());
-            return writer.writeValueAsString(object);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     // 将下划线形式的字符串转化为驼峰型

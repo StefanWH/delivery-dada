@@ -1,36 +1,47 @@
 package so.sao.shop.dada.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import org.springframework.web.client.RestTemplate;
-import so.sao.shop.dada.config.DadaProperties;
-import so.sao.shop.dada.request.*;
-import so.sao.shop.dada.response.DadaBaseResponse;
-import so.sao.shop.dada.util.DadaUtils;
-
-
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import com.google.gson.Gson;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import so.sao.shop.dada.DadaException;
+import so.sao.shop.dada.config.DadaProperties;
+import so.sao.shop.dada.request.DadaAddOrderRequest;
+import so.sao.shop.dada.request.DadaBaseRequest;
+import so.sao.shop.dada.request.DadaCancelOrderRequest;
+import so.sao.shop.dada.request.DadaCreateShopRequest;
+import so.sao.shop.dada.request.DadaOrderStatusChangeTestRequest;
+import so.sao.shop.dada.request.DadaPublishOrderRequest;
+import so.sao.shop.dada.request.DadaQueryDeliveryFeeRequest;
+import so.sao.shop.dada.request.DadaQueryOrderDetailRequest;
+import so.sao.shop.dada.request.DadaQueryShopRequest;
+import so.sao.shop.dada.response.DadaBaseResponse;
+import so.sao.shop.dada.util.DadaUtils;
 
 public class DadaService {
 
     private DadaProperties dadaProperties;
 
-    private RestTemplate dadaRestTemplate;
+    private OkHttpClient httpClient;
 
-    private static ObjectMapper mapper = new ObjectMapper();
+    private static final Gson GSON = new Gson();
+
+    private static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
 
     /**
      * 达达api版本
      * */
-    private static String v="1.0";
+    private static final String DATA_API_VERSION = "1.0";
 
     /**
      * 请求格式
      * */
-    private static String format="json";
+    private static final String FORMAT = "json";
 
     /**
      * 新增订单达达接口
@@ -43,8 +54,7 @@ public class DadaService {
         DadaBaseRequest dadaRequest = new DadaBaseRequest();
         dadaRequest.setBody(toJson(addRequestMap));
 
-        DadaBaseResponse response=executeRequest("/api/order/addOrder", dadaRequest);
-        return response;
+        return executeRequest("/api/order/addOrder", dadaRequest);
 
     }
 
@@ -54,8 +64,7 @@ public class DadaService {
     public DadaBaseResponse queryThirdPartyNo(DadaQueryDeliveryFeeRequest request){
 
         DadaBaseRequest dadaRequest = setBaseBody(request);
-        DadaBaseResponse response=executeRequest("/api/order/queryDeliverFee", dadaRequest);
-        return response;
+        return executeRequest("/api/order/queryDeliverFee", dadaRequest);
     }
 
     /**
@@ -64,8 +73,7 @@ public class DadaService {
     public DadaBaseResponse publishOrder(DadaPublishOrderRequest request){
 
         DadaBaseRequest dadaRequest = setBaseBody(request);
-        DadaBaseResponse response=executeRequest("/api/order/addAfterQuery", dadaRequest);
-        return response;
+        return executeRequest("/api/order/addAfterQuery", dadaRequest);
     }
 
     /**
@@ -74,8 +82,7 @@ public class DadaService {
     public DadaBaseResponse cancelOrder(DadaCancelOrderRequest request){
 
         DadaBaseRequest dadaRequest = setBaseBody(request);
-        DadaBaseResponse response=executeRequest("/api/order/formalCancel", dadaRequest);
-        return response;
+        return executeRequest("/api/order/formalCancel", dadaRequest);
     }
 
     /**
@@ -84,8 +91,7 @@ public class DadaService {
     public DadaBaseResponse queryOrderDetail(DadaQueryOrderDetailRequest request){
 
         DadaBaseRequest dadaRequest = setBaseBody(request);
-        DadaBaseResponse response=executeRequest("/api/order/status/query", dadaRequest);
-        return response;
+        return executeRequest("/api/order/status/query", dadaRequest);
 
     }
 
@@ -101,8 +107,7 @@ public class DadaService {
         ArrayList<Map<String , Object>> list = new ArrayList<Map<String , Object>>();
         list.add(requestBodyMap);
         dadaRequest.setBody(toJson(list));
-        DadaBaseResponse response=executeRequest("/api/shop/add", dadaRequest);
-        return response;
+        return executeRequest("/api/shop/add", dadaRequest);
     }
 
     /**
@@ -110,8 +115,7 @@ public class DadaService {
      * */
     public DadaBaseResponse queryDadaShop(DadaQueryShopRequest request){
         DadaBaseRequest dadaRequest = setBaseBody(request);
-        DadaBaseResponse response=executeRequest("/api/shop/detail", dadaRequest);
-        return response;
+        return executeRequest("/api/shop/detail", dadaRequest);
     }
 
     /**
@@ -119,8 +123,7 @@ public class DadaService {
      * */
     public DadaBaseResponse queryCityDetail(DadaBaseRequest request){
         request.setBody("");
-        DadaBaseResponse response=executeRequest("/api/cityCode/list", request);
-        return response;
+        return executeRequest("/api/cityCode/list", request);
     }
 
     /**
@@ -128,8 +131,7 @@ public class DadaService {
      * */
     public DadaBaseResponse queryCancelReason(DadaBaseRequest request){
         request.setBody("");
-        DadaBaseResponse response=executeRequest("/api/order/cancel/reasons", request);
-        return response;
+        return executeRequest("/api/order/cancel/reasons", request);
     }
 
     /**
@@ -137,8 +139,7 @@ public class DadaService {
      * */
     public DadaBaseResponse acceptOrder(DadaOrderStatusChangeTestRequest request){
         DadaBaseRequest dadaRequest = setBaseBody(request);
-        DadaBaseResponse response=executeRequest("/api/order/accept", dadaRequest);
-        return response;
+        return executeRequest("/api/order/accept", dadaRequest);
     }
 
     /**
@@ -146,8 +147,7 @@ public class DadaService {
      * */
     public DadaBaseResponse fetch(DadaOrderStatusChangeTestRequest request){
         DadaBaseRequest dadaRequest = setBaseBody(request);
-        DadaBaseResponse response=executeRequest("/api/order/fetch", dadaRequest);
-        return response;
+        return executeRequest("/api/order/fetch", dadaRequest);
     }
 
     /**
@@ -155,8 +155,7 @@ public class DadaService {
      * */
     public DadaBaseResponse completed(DadaOrderStatusChangeTestRequest request){
         DadaBaseRequest dadaRequest = setBaseBody(request);
-        DadaBaseResponse response=executeRequest("/api/order/finish", dadaRequest);
-        return response;
+        return executeRequest("/api/order/finish", dadaRequest);
     }
 
     /**
@@ -177,11 +176,25 @@ public class DadaService {
         return response;
     }
 
-    private DadaBaseResponse executeRequest(String url, DadaBaseRequest request) {
-        setBaseRequestParams(request);
+    private DadaBaseResponse executeRequest(String url, DadaBaseRequest dadaRequest) {
+
+        setBaseRequestParams(dadaRequest);
         //将request中的驼峰形式的属性转化为"_"形式的map
-        Map<String , Object> dadaRequestMap = DadaUtils.entityTransToMap(request);
-        return dadaRestTemplate.postForObject(url, dadaRequestMap, DadaBaseResponse.class);
+        Map<String , Object> dadaRequestMap = DadaUtils.entityTransToMap(dadaRequest);
+
+        RequestBody body = RequestBody.create(JSON, toJson(dadaRequestMap));
+        Request request = new Request.Builder()
+                .url(dadaProperties.getServiceHost() + url)
+                .post(body)
+                .build();
+
+        try {
+            Response response = httpClient.newCall(request).execute();
+            GSON.fromJson(response.body().string(), DadaBaseResponse.class);
+        } catch (Exception e) {
+            throw new DadaException("request data exception", e);
+        }
+        return null;
     }
 
     private void setBaseRequestParams(DadaBaseRequest request){
@@ -192,8 +205,8 @@ public class DadaService {
 
         Long s=System.currentTimeMillis();
         request.setTimestamp(s.toString());
-        request.setV(v);
-        request.setFormat(format);
+        request.setV(DATA_API_VERSION);
+        request.setFormat(FORMAT);
         request.setSignature(DadaUtils.getSign(request,dadaProperties.getAppSecret()));
 //        request.setSignature(DadaUtils.getSign(request,"bf0f92e9d6f4002d4f48248eff55b793"));
     }
@@ -209,22 +222,15 @@ public class DadaService {
     }
 
     //将实体类转化为json
-    public String toJson(Object object) {
-        try {
-            ObjectWriter writer = mapper.writerFor(object.getClass());
-            return writer.writeValueAsString(object);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private String toJson(Object object) {
+        return GSON.toJson(object);
     }
 
     public void setDadaProperties(DadaProperties dadaProperties) {
         this.dadaProperties = dadaProperties;
     }
 
-    public void setDadaRestTemplate(RestTemplate dadaRestTemplate) {
-        this.dadaRestTemplate = dadaRestTemplate;
+    public void setHttpClient(OkHttpClient httpClient) {
+        this.httpClient = httpClient;
     }
-
-
 }
