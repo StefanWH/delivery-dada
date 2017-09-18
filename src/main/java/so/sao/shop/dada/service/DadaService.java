@@ -190,25 +190,24 @@ public class DadaService {
 
         try {
             Response response = httpClient.newCall(request).execute();
-            GSON.fromJson(response.body().string(), DadaBaseResponse.class);
+            return GSON.fromJson(response.body().string(), DadaBaseResponse.class);
         } catch (Exception e) {
             throw new DadaException("request data exception", e);
         }
-        return null;
     }
 
     private void setBaseRequestParams(DadaBaseRequest request){
-        request.setAppKey(dadaProperties.getAppKey());
-        request.setSourceId(dadaProperties.getSourceId());
-//        request.setAppKey("dada339f050d417cda9");
-//        request.setSourceId("73753");
+//        request.setAppKey(dadaProperties.getAppKey());
+//        request.setSourceId(dadaProperties.getSourceId());
+        request.setAppKey("dada339f050d417cda9");
+        request.setSourceId("73753");
 
         Long s=System.currentTimeMillis();
         request.setTimestamp(s.toString());
         request.setV(DATA_API_VERSION);
         request.setFormat(FORMAT);
-        request.setSignature(DadaUtils.getSign(request,dadaProperties.getAppSecret()));
-//        request.setSignature(DadaUtils.getSign(request,"bf0f92e9d6f4002d4f48248eff55b793"));
+//        request.setSignature(DadaUtils.getSign(request,dadaProperties.getAppSecret()));
+        request.setSignature(DadaUtils.getSign(request,"bf0f92e9d6f4002d4f48248eff55b793"));
     }
 
     private DadaBaseRequest setBaseBody(DadaBaseRequest request){
